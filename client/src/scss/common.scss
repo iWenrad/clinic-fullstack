@@ -149,7 +149,7 @@
 		font-size: toRem(20);
 		transition: color 0.3s;
 		@media (any-hover: hover) {
-			&:hover {
+			&:hover, &:focus {
 				color: var(--blue);
 			}
 		}

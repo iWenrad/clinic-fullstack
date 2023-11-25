@@ -255,7 +255,7 @@
 		letter-spacing: toRem(2);
 		background-color: var(--bg-blue);
 		@media (any-hover: hover) {
-			&:hover {
+			&:hover, &:focus {
 				background-color: var(--bg-blue-hover);
 			}
 		}
@@ -398,7 +398,7 @@
 			margin-bottom: toRem(25);
 		}
 		@media (any-hover: hover) {
-			&:hover {
+			&:hover, &:focus {
 				img {
 					transform: scale(1.07);
 				}
