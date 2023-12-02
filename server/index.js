@@ -13,11 +13,12 @@ app.use(bodyParser.json())
 app.get('/', (req, res) => res.send(`Requested from ${req.hostname} : <h1>Hello World</h1>`))
 
 app.post('/mail', async (req, res) => {
-  const { email, message } = req.body
-  return res.json({ result: await Mail.send(email, message) })
+    const {name, email, message} = req.body
+    console.log(name, email, message)
+    return res.json({ result: await Mail.send(name, email, message) })
 })
 
 
 app.listen(process.env.PORT || 3000, () => {
-  console.log('Server is running on port :3000')
+    console.log(`Server is running on port : ${process.env.PORT || 3000}`)
 })

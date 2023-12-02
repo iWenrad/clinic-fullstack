@@ -227,3 +227,34 @@ if (gallery && !isMobile.any()) {
 		});
 	});
 }
+
+const button = document.querySelector('#send-data');
+const form = document.querySelector('#form');
+const elements = form.elements;
+
+button.addEventListener('click', (e) => {
+	e.preventDefault();
+
+	const name = elements.name.value;
+    const email = elements.email.value;
+    const message = elements.message.value;
+
+	// console.log(message)
+
+	sendDataToMail(name, email, message);
+})
+
+function sendDataToMail(name, email, message) {
+	fetch('http://127.0.0.1:3000/mail', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({ name, email, message }),
+	})
+		.then(response => response.json())
+		.then(data => {
+			console.log('Server response:', data.result);
+		})
+		.catch(error => console.error('Error:', error));
+}
