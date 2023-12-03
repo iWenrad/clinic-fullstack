@@ -228,21 +228,61 @@ if (gallery && !isMobile.any()) {
 	});
 }
 
-const button = document.querySelector('#send-data');
-const form = document.querySelector('#form');
-const elements = form.elements;
+// Mailing 
 
-button.addEventListener('click', (e) => {
-	e.preventDefault();
+const mailing = document.querySelector('#mailing');
+const mailingButton = document.querySelector('#mailing-button');
 
-	const name = elements.name.value;
-    const email = elements.email.value;
-    const message = elements.message.value;
+mailingButton.addEventListener('click', (event) => {
+	event.preventDefault();
 
-	// console.log(message)
-
-	sendDataToMail(name, email, message);
+	const email = mailing.elements.email.value;	
+	mailingData(email);
 })
+
+function mailingData(email) {
+    fetch('http://127.0.0.1:3000/mailing', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const contentType = response.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+            return response.json();
+        } else {
+            throw new Error('Invalid content type in response');
+        }
+    })
+    .then(data => {
+        console.log('Server response:', data.result);
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+// Send data
+
+if (document.querySelector('.contact-us__form')) {
+    const button = document.querySelector('#send-data');
+    const form = document.querySelector('#form');
+    
+    button.addEventListener('click', (e) => {
+        e.preventDefault();
+    
+        const elements = form.elements;
+    
+        const name = elements.name.value;
+        const email = elements.email.value;
+        const message = elements.message.value;
+    
+        sendDataToMail(name, email, message);
+    })
+}
 
 function sendDataToMail(name, email, message) {
 	fetch('http://127.0.0.1:3000/mail', {
