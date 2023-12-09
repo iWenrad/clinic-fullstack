@@ -241,7 +241,7 @@ mailingButton.addEventListener('click', (event) => {
 })
 
 function mailingData(email) {
-    fetch('http://127.0.0.1:3000/mailing', {
+    fetch('http://127.0.0.1:3000/api/mailing', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -267,7 +267,10 @@ function mailingData(email) {
 
 // Send data
 
-if (document.querySelector('.contact-us__form')) {
+const getInTouchForm = document.querySelector('.get-in-touch__form')
+const contactUsForm = document.querySelector('.contact-us__form')
+
+if (getInTouchForm || contactUsForm) {
     const button = document.querySelector('#send-data');
     const form = document.querySelector('#form');
     
@@ -285,7 +288,7 @@ if (document.querySelector('.contact-us__form')) {
 }
 
 function sendDataToMail(name, email, message) {
-	fetch('http://127.0.0.1:3000/mail', {
+	fetch('http://127.0.0.1:3000/api/mail', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
